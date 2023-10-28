@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ynaa-fagdag
+  namespace: apps
+  labels:
+    k8s-app: ynaa-fagdag
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    k8s-app: ynaa-fagdag
+  type: ClusterIP
