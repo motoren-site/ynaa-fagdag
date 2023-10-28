@@ -33,6 +33,6 @@ jobs:
         run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|registry.digitalocean.com/containers/ynaa-fagdag:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment.yml
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f config/deployment.yml
+        run: kubectl apply -f config/deployment.yml && kubectl apply -f config/service.yml && kubectl apply -f config/ingress.yml
 
 
