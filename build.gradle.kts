@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "1.9.0"
     application
     id("com.google.cloud.tools.jib") version "3.4.0"
-
+    id("io.ktor.plugin") version "2.3.5"
 }
 val ktor_version = "2.3.5"
 val kotlin_version = "1.9.0"
@@ -39,11 +39,27 @@ kotlin {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.example.MainKt")
 }
 
 val artifactory_user: String by project
 val artifactory_password: String by project
+
+ktor {
+    docker {
+        jreVersion.set(JavaVersion.VERSION_17)
+        localImageName.set("ynaa-fagdag")
+        imageTag.set("0.0.1-preview")
+        portMappings.set(listOf(
+            io.ktor.plugin.features.DockerPortMapping(
+                80,
+                8080,
+                io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+            )
+        ))
+
+    }
+}
 
 
 val jvmTarget: String? by project
