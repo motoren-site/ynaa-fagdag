@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ynaa-fagdag
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: ynaa-fagdag
+  template:
+    metadata:
+      name: ynaa-fagdag
+      labels:
+        k8s-app: ynaa-fagdag
+    spec:
+      containers:
+        - name: ynaa-fagdag
+          image: <IMAGE>
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+  minReadySeconds: 5
